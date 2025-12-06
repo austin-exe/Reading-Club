@@ -34,6 +34,13 @@
             overflow-x: hidden;
         }
 
+        /* Global Image Reset to prevent cropping */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
         h1, h2, h3, h4 { color: var(--text-cream); margin-bottom: 1rem; }
         h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; }
         h2 { font-size: 2.5rem; border-bottom: 2px solid var(--taupe); padding-bottom: 10px; display: inline-block; margin-top: 0; }
@@ -100,7 +107,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
-        /* Secondary Button Style */
         .btn-outline {
             background-color: transparent;
             border: 2px solid var(--text-silver);
@@ -123,47 +129,64 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        /* --- FEATURES GRID --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+        /* --- NEW FEATURES LAYOUT (Alternating Rows) --- */
+        .features-container {
+            display: flex;
+            flex-direction: column;
+            gap: 100px; /* Space between rows */
+            margin-top: 60px;
         }
 
-        .feature-card {
-            background-color: var(--panel-color);
-            padding: 30px;
-            border-radius: 12px;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            border: 1px solid var(--grid-line);
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--taupe);
-        }
-
-        .feature-img-box {
-            width: 100%;
-            height: 200px;
-            background-color: #252525;
+        .feature-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            border: 1px dashed #444;
-            position: relative;
+            gap: 60px;
+        }
+
+        /* Reverse order for even rows to create alternating look */
+        .feature-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-white);
+        }
+
+        .feature-image-wrapper {
+            flex: 1.5; /* Image takes up more space than text */
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            border: 1px solid var(--grid-line);
+            transition: transform 0.5s ease;
         }
         
-        .feature-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .feature-image-wrapper:hover {
+             transform: scale(1.02);
+             border-color: var(--taupe);
         }
+
+        .feature-image-wrapper img {
+            width: 100%;
+            height: auto; /* Ensures no cropping */
+            display: block;
+        }
+        
+        /* Responsive design for smaller screens */
+        @media (max-width: 900px) {
+            .feature-row, .feature-row:nth-child(even) {
+                flex-direction: column-reverse; /* Stack image on top of text on mobile */
+                gap: 30px;
+            }
+            .feature-text h3 { font-size: 1.5rem; }
+        }
+
 
         /* --- INSTALLATION STEPS --- */
         .step {
@@ -199,7 +222,7 @@
             margin-top: 10px;
         }
 
-        /* --- CODE SHOWCASE --- */
+        /* --- CODE SHOWCASE (FIXED FOR CROPPING) --- */
         .code-container {
             display: flex;
             gap: 40px;
@@ -216,6 +239,7 @@
             overflow: hidden;
             border: 1px solid var(--grid-line);
             transition: transform 0.3s ease;
+            /* Removed fixed height constraints */
         }
         
         .code-window:hover {
@@ -241,30 +265,21 @@
         .code-img-container {
             width: 100%;
             background-color: #1e1e1e;
-            position: relative;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Fallback text if image is missing */
-        .code-img-container img[style*="display: none"] + .code-placeholder-text {
-            display: block !important;
-        }
-
-        .code-placeholder-text {
-            color: #555;
-            font-family: monospace;
-            text-align: center;
-            padding: 20px;
-            display: none; /* Hidden by default if image loads */
+            /* Removed fixed heights and flex centering to allow natural image size */
         }
 
         .code-img-container img {
             width: 100%;
-            height: auto;
+            height: auto; /* Crucial for avoiding cropping */
             display: block;
+        }
+
+        /* Fallback text */
+        .code-placeholder-text {
+            color: #555;
+            font-family: monospace;
+            text-align: center;
+            padding: 40px;
         }
 
         /* --- FOOTER --- */
@@ -313,39 +328,48 @@
 
     <section id="features">
         <div class="container">
-            <h2 data-aos="fade-right">Key Features</h2>
-            <div class="features-grid">
+            <h2 data-aos="fade-right">Key Features Showcase</h2>
+            
+            <div class="features-container">
                 
-                <div class="feature-card" data-aos="flip-up">
-                    <div class="feature-img-box">
-                        <img src="feature_inventory.png" alt="Inventory Management" onerror="this.style.display='none'">
+                <div class="feature-row">
+                    <div class="feature-text" data-aos="fade-right">
+                        <h3>Smart Inventory Grid</h3>
+                        <p>A beautiful, organized view of your entire collection. Features automatic ID sequencing, clear categorization (Books, Films, Magazines), and live status updates. The striped rows and Noir theme ensure maximum readability.</p>
                     </div>
-                    <h3>Smart Inventory</h3>
-                    <p>A beautiful grid view of all Books, Films, and Magazines with automatic ID sequencing and striped rows for readability.</p>
+                    <div class="feature-image-wrapper" data-aos="fade-left">
+                        <img src="feature_inventory.png" alt="Inventory Management Screenshot" onerror="this.style.display='none'">
+                    </div>
                 </div>
 
-                <div class="feature-card" data-aos="flip-up">
-                    <div class="feature-img-box">
-                        <img src="feature_borrow.png" alt="Borrow Panel" onerror="this.style.display='none'">
+                <div class="feature-row">
+                    <div class="feature-text" data-aos="fade-left">
+                        <h3>Actionable Sidebar</h3>
+                        <p>Manage items effortlessly. Selecting an item brings up a detailed sidebar with a synopsis and large, clear action buttons. Check items out to members or mark them returned with a single click.</p>
                     </div>
-                    <h3>Borrow & Return</h3>
-                    <p>Effortless circulation management. Check items out to members and return them with a single click. Status updates instantly.</p>
+                    <div class="feature-image-wrapper" data-aos="fade-right">
+                        <img src="feature_borrow.png" alt="Borrow Panel Screenshot" onerror="this.style.display='none'">
+                    </div>
                 </div>
 
-                <div class="feature-card" data-aos="flip-up">
-                    <div class="feature-img-box">
-                        <img src="feature_search.png" alt="Search Tool" onerror="this.style.display='none'">
+                <div class="feature-row">
+                    <div class="feature-text" data-aos="fade-right">
+                        <h3>Instant Search</h3>
+                        <p>Locate any item in milliseconds. The integrated search engine filters your collection dynamically by Title, Creator, or Genre as you type, making collection navigation instantaneous.</p>
                     </div>
-                    <h3>Instant Search</h3>
-                    <p>Find any item in milliseconds. Filter your collection by Title, Creator, or Category using the integrated search engine.</p>
+                    <div class="feature-image-wrapper" data-aos="fade-left">
+                        <img src="feature_search.png" alt="Search Tool Screenshot" onerror="this.style.display='none'">
+                    </div>
                 </div>
 
-                <div class="feature-card" data-aos="flip-up">
-                    <div class="feature-img-box">
-                        <img src="feature_history.png" alt="History Log" onerror="this.style.display='none'">
+                <div class="feature-row">
+                    <div class="feature-text" data-aos="fade-left">
+                        <h3>Audit History Log</h3>
+                        <p>Maintain complete accountability. Access a permanent, time-stamped history log for any item to see exactly who borrowed it, when it was returned, and track circulation trends over time.</p>
                     </div>
-                    <h3>Audit Trails</h3>
-                    <p>Maintain complete accountability with a permanent history log of every transaction, edit, and deletion.</p>
+                    <div class="feature-image-wrapper" data-aos="fade-right">
+                        <img src="feature_history.png" alt="History Log Screenshot" onerror="this.style.display='none'">
+                    </div>
                 </div>
 
             </div>
@@ -408,10 +432,9 @@
                         <span class="window-title">app.py (Frontend)</span>
                     </div>
                     <div class="code-img-container">
-                        <img src="frontend_code.png" alt="Frontend Code" onerror="this.style.display='none'">
-                        <div class="code-placeholder-text">
-                            [ Put frontend_code.png here ]<br>
-                            &lt;img src="frontend_code.png"&gt;
+                        <img src="frontend_code.png" alt="Frontend Code" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="code-placeholder-text" style="display:none;">
+                            Image not found: frontend_code.png
                         </div>
                     </div>
                 </div>
@@ -422,10 +445,9 @@
                         <span class="window-title">server.py (Backend API)</span>
                     </div>
                     <div class="code-img-container">
-                        <img src="backend_code.png" alt="Backend Code" onerror="this.style.display='none'">
-                        <div class="code-placeholder-text">
-                            [ Put backend_code.png here ]<br>
-                            &lt;img src="backend_code.png"&gt;
+                        <img src="backend_code.png" alt="Backend Code" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="code-placeholder-text" style="display:none;">
+                             Image not found: backend_code.png
                         </div>
                     </div>
                 </div>
@@ -447,7 +469,7 @@
             offset: 120,       
             delay: 0,          
             duration: 1000,    
-            easing: 'ease',    
+            easing: 'ease-out-cubic',    
             once: false,       /* Animation Replays Every Time */
             mirror: true,      /* Animate on scroll up too */
             anchorPlacement: 'top-bottom', 
