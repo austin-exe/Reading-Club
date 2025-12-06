@@ -222,7 +222,7 @@
             margin-top: 10px;
         }
 
-        /* --- CODE SHOWCASE (FIXED FOR CROPPING) --- */
+        /* --- CODE SHOWCASE (TERMINAL STYLE) --- */
         .code-container {
             display: flex;
             gap: 40px;
@@ -239,7 +239,6 @@
             overflow: hidden;
             border: 1px solid var(--grid-line);
             transition: transform 0.3s ease;
-            /* Removed fixed height constraints */
         }
         
         .code-window:hover {
@@ -262,25 +261,27 @@
         .green { background-color: #27c93f; }
         .window-title { margin-left: 15px; color: #888; font-size: 0.9rem; font-family: monospace; }
 
-        .code-img-container {
-            width: 100%;
-            background-color: #1e1e1e;
-            /* Removed fixed heights and flex centering to allow natural image size */
+        /* The Code Snippet Area */
+        .code-snippet-box {
+            background-color: #1e1e1e; /* Match panel color */
+            padding: 25px;
+            margin: 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #d4d4d4; /* Default text color */
         }
-
-        .code-img-container img {
-            width: 100%;
-            height: auto; /* Crucial for avoiding cropping */
-            display: block;
-        }
-
-        /* Fallback text */
-        .code-placeholder-text {
-            color: #555;
-            font-family: monospace;
-            text-align: center;
-            padding: 40px;
-        }
+        
+        /* Syntax Highlighting Colors (Simulated Theme) */
+        .html-tag { color: #569cd6; } 
+        .html-attr { color: #9cdcfe; } 
+        .html-str { color: #ce9178; } 
+        
+        .py-kw { color: #c586c0; }  /* Keywords (import, from) */
+        .py-str { color: #ce9178; }  /* Strings */
+        .py-comment { color: #6a9955; } /* Comments */
+        .py-var { color: #FFFDD0; } /* Variables (cream color) */
 
         /* --- FOOTER --- */
         footer {
@@ -422,34 +423,56 @@
     <section id="code">
         <div class="container">
             <h2 data-aos="fade-right">Source Code Architecture</h2>
-            <p>Visual architecture of the Frontend (GUI) and Backend (API).</p>
+            <p>Visual architecture of the Frontend (GUI) and structure of the Documentation.</p>
             
             <div class="code-container">
                 
                 <div class="code-window" data-aos="fade-right">
                     <div class="window-bar">
                         <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-                        <span class="window-title">app.py (Frontend)</span>
+                        <span class="window-title">app.py (Frontend GUI)</span>
                     </div>
-                    <div class="code-img-container">
-                        <img src="frontend_code.png" alt="Frontend Code" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="code-placeholder-text" style="display:none;">
-                            Image not found: frontend_code.png
-                        </div>
-                    </div>
+                    <pre class="code-snippet-box">
+<span class="py-kw">import</span> tkinter <span class="py-kw">as</span> tk
+<span class="py-kw">from</span> tkinter <span class="py-kw">import</span> ttk, messagebox, simpledialog
+<span class="py-kw">import</span> requests
+
+<span class="py-comment"># --- CONFIGURATION ---</span>
+<span class="py-var">API_BASE</span> = <span class="py-str">"http://127.0.0.1:5000/api/items"</span>
+
+<span class="py-comment"># --- CUSTOM PALETTE ("Noir & Taupe") ---</span>
+<span class="py-var">COLORS</span> = {
+    <span class="py-str">"bg"</span>: <span class="py-str">"#121212"</span>,             <span class="py-comment"># Deep Black Background</span>
+    <span class="py-str">"panel"</span>: <span class="py-str">"#1E1E1E"</span>,          <span class="py-comment"># Sidebar Panel</span>
+    <span class="py-str">"header"</span>: <span class="py-str">"#000000"</span>,         <span class="py-comment"># Header</span>
+    <span class="py-str">"cream"</span>: <span class="py-str">"#FFFDD0"</span>,          <span class="py-comment"># Accent Text</span>
+    <span class="py-str">"taupe"</span>: <span class="py-str">"#483C32"</span>,          <span class="py-comment"># Primary Buttons</span>
+    <span class="py-comment"># ... rest of palette</span>
+}
+                    </pre>
                 </div>
 
                 <div class="code-window" data-aos="fade-left">
                     <div class="window-bar">
                         <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-                        <span class="window-title">server.py (Backend API)</span>
+                        <span class="window-title">index.html (Documentation Structure)</span>
                     </div>
-                    <div class="code-img-container">
-                        <img src="backend_code.png" alt="Backend Code" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="code-placeholder-text" style="display:none;">
-                             Image not found: backend_code.png
-                        </div>
-                    </div>
+                    <pre class="code-snippet-box">
+&lt;!DOCTYPE html&gt;
+&lt;<span class="html-tag">html</span> <span class="html-attr">lang</span>=<span class="html-str">"en"</span>&gt;
+&lt;<span class="html-tag">head</span>&gt;
+    &lt;<span class="html-tag">meta</span> <span class="html-attr">charset</span>=<span class="html-str">"UTF-8"</span>&gt;
+    &lt;<span class="html-tag">meta</span> <span class="html-attr">name</span>=<span class="html-str">"viewport"</span> <span class="html-attr">content</span>=<span class="html-str">"width=device-width, initial-scale=1.0"</span>&gt;
+    &lt;<span class="html-tag">title</span>&gt;Reading Club - Official Documentation&lt;/<span class="html-tag">title</span>&gt;
+    
+    &lt;<span class="html-tag">link</span> <span class="html-attr">href</span>=<span class="html-str">"https://unpkg.com/aos@2.3.1/dist/aos.css"</span> <span class="html-attr">rel</span>=<span class="html-str">"stylesheet"</span>&gt;
+    &lt;<span class="html-tag">link</span> <span class="html-attr">rel</span>=<span class="html-str">"stylesheet"</span> <span class="html-attr">href</span>=<span class="html-str">"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"</span>&gt;
+    
+    &lt;<span class="html-tag">style</span>&gt;
+        /* Noir & Taupe Theme CSS styles... */
+    &lt;/<span class="html-tag">style</span>&gt;
+&lt;/<span class="html-tag">head</span>&gt;
+                    </pre>
                 </div>
 
             </div>
