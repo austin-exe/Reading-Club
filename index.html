@@ -64,28 +64,53 @@
             position: relative;
         }
 
-        .hero-content { z-index: 2; max-width: 800px; }
+        .hero-content { z-index: 2; max-width: 900px; }
         .hero h1 span { color: #8a7a6b; } 
         
+        /* Button Container */
+        .btn-group {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background-color: var(--taupe);
             color: var(--text-cream);
-            padding: 18px 50px;
-            font-size: 1.2rem;
+            padding: 16px 40px;
+            font-size: 1.1rem;
             font-weight: bold;
             text-decoration: none;
             border-radius: 4px;
             transition: all 0.3s ease;
-            margin-top: 30px;
             letter-spacing: 1px;
+            border: 2px solid var(--taupe);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .btn:hover {
             background-color: var(--taupe-hover);
+            border-color: var(--taupe-hover);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Secondary Button Style */
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--text-silver);
+            color: var(--text-white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-white);
+            color: var(--bg-color);
+            border-color: var(--text-white);
         }
 
         /* --- DESCRIPTION --- */
@@ -134,10 +159,6 @@
             overflow: hidden;
         }
         
-        .feature-img-box i { font-size: 3rem; color: #444; }
-        .feature-img-box span { position: absolute; bottom: 10px; font-size: 0.8rem; color: #555; }
-        
-        /* Helper to fit real images perfectly */
         .feature-img-box img {
             width: 100%;
             height: 100%;
@@ -178,7 +199,7 @@
             margin-top: 10px;
         }
 
-        /* --- CODE SHOWCASE (UPDATED FOR IMAGES) --- */
+        /* --- CODE SHOWCASE --- */
         .code-container {
             display: flex;
             gap: 40px;
@@ -217,7 +238,6 @@
         .green { background-color: #27c93f; }
         .window-title { margin-left: 15px; color: #888; font-size: 0.9rem; font-family: monospace; }
 
-        /* Container for the code image */
         .code-img-container {
             width: 100%;
             background-color: #1e1e1e;
@@ -228,12 +248,17 @@
             justify-content: center;
         }
 
-        /* Placeholder style if image is missing */
+        /* Fallback text if image is missing */
+        .code-img-container img[style*="display: none"] + .code-placeholder-text {
+            display: block !important;
+        }
+
         .code-placeholder-text {
             color: #555;
             font-family: monospace;
             text-align: center;
             padding: 20px;
+            display: none; /* Hidden by default if image loads */
         }
 
         .code-img-container img {
@@ -259,7 +284,16 @@
             <h1>🍀 Reading <span>Club</span></h1>
             <p style="font-size: 1.5rem; color: var(--text-cream); margin-top: 10px;">Professional Library Management System</p>
             <p style="opacity: 0.7;">Powered by Python, Flask & Tkinter</p>
-            <a href="#install" class="btn">Get Started</a>
+            
+            <div class="btn-group">
+                <a href="https://github.com/austin-exe/Reading-Club/archive/refs/heads/main.zip" class="btn">
+                    <i class="fas fa-download"></i> Download Source Code
+                </a>
+                
+                <a href="https://github.com/austin-exe/Reading-Club" class="btn btn-outline" target="_blank">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
         </div>
     </header>
 
@@ -284,17 +318,15 @@
                 
                 <div class="feature-card" data-aos="flip-up">
                     <div class="feature-img-box">
-                        <i class="fas fa-table"></i>
-                        <span>Inventory Snapshot</span>
-                        </div>
+                        <img src="feature_inventory.png" alt="Inventory Management" onerror="this.style.display='none'">
+                    </div>
                     <h3>Smart Inventory</h3>
                     <p>A beautiful grid view of all Books, Films, and Magazines with automatic ID sequencing and striped rows for readability.</p>
                 </div>
 
                 <div class="feature-card" data-aos="flip-up">
                     <div class="feature-img-box">
-                        <i class="fas fa-handshake"></i>
-                        <span>Action Panel</span>
+                        <img src="feature_borrow.png" alt="Borrow Panel" onerror="this.style.display='none'">
                     </div>
                     <h3>Borrow & Return</h3>
                     <p>Effortless circulation management. Check items out to members and return them with a single click. Status updates instantly.</p>
@@ -302,8 +334,7 @@
 
                 <div class="feature-card" data-aos="flip-up">
                     <div class="feature-img-box">
-                        <i class="fas fa-search"></i>
-                        <span>Search Tool</span>
+                        <img src="feature_search.png" alt="Search Tool" onerror="this.style.display='none'">
                     </div>
                     <h3>Instant Search</h3>
                     <p>Find any item in milliseconds. Filter your collection by Title, Creator, or Category using the integrated search engine.</p>
@@ -311,8 +342,7 @@
 
                 <div class="feature-card" data-aos="flip-up">
                     <div class="feature-img-box">
-                        <i class="fas fa-history"></i>
-                        <span>History Log</span>
+                        <img src="feature_history.png" alt="History Log" onerror="this.style.display='none'">
                     </div>
                     <h3>Audit Trails</h3>
                     <p>Maintain complete accountability with a permanent history log of every transaction, edit, and deletion.</p>
@@ -329,14 +359,23 @@
             <div class="step" data-aos="fade-left">
                 <div class="step-num">1</div>
                 <div class="step-content">
-                    <h3>Install Requirements</h3>
-                    <p>Open your terminal and install the necessary Python libraries.</p>
-                    <div class="terminal">pip install flask requests</div>
+                    <h3>Get the Code</h3>
+                    <p>Download the source code ZIP using the button above, or clone the repository via terminal.</p>
+                    <div class="terminal">git clone https://github.com/austin-exe/Reading-Club.git</div>
                 </div>
             </div>
 
             <div class="step" data-aos="fade-left">
                 <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Install Requirements</h3>
+                    <p>Navigate to the project folder and install the necessary Python libraries.</p>
+                    <div class="terminal">pip install flask requests</div>
+                </div>
+            </div>
+
+            <div class="step" data-aos="fade-left">
+                <div class="step-num">3</div>
                 <div class="step-content">
                     <h3>Initialize Server</h3>
                     <p>Start the backend API first. This will automatically generate the database.</p>
@@ -345,7 +384,7 @@
             </div>
 
             <div class="step" data-aos="fade-left">
-                <div class="step-num">3</div>
+                <div class="step-num">4</div>
                 <div class="step-content">
                     <h3>Launch Application</h3>
                     <p>Open a new terminal window and run the frontend interface.</p>
@@ -358,7 +397,7 @@
 
     <section id="code">
         <div class="container">
-            <h2 data-aos="fade-right">Source Code</h2>
+            <h2 data-aos="fade-right">Source Code Architecture</h2>
             <p>Visual architecture of the Frontend (GUI) and Backend (API).</p>
             
             <div class="code-container">
@@ -369,8 +408,8 @@
                         <span class="window-title">app.py (Frontend)</span>
                     </div>
                     <div class="code-img-container">
-                        <img src="frontend_code.png" alt="Frontend Code" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="code-placeholder-text" style="display:none;">
+                        <img src="frontend_code.png" alt="Frontend Code" onerror="this.style.display='none'">
+                        <div class="code-placeholder-text">
                             [ Put frontend_code.png here ]<br>
                             &lt;img src="frontend_code.png"&gt;
                         </div>
@@ -383,8 +422,8 @@
                         <span class="window-title">server.py (Backend API)</span>
                     </div>
                     <div class="code-img-container">
-                        <img src="backend_code.png" alt="Backend Code" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="code-placeholder-text" style="display:none;">
+                        <img src="backend_code.png" alt="Backend Code" onerror="this.style.display='none'">
+                        <div class="code-placeholder-text">
                             [ Put backend_code.png here ]<br>
                             &lt;img src="backend_code.png"&gt;
                         </div>
@@ -405,12 +444,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            offset: 120,       // Offset (in px) from the original trigger point
-            delay: 0,          // Values from 0 to 3000, with step 50ms
-            duration: 1000,    // Values from 0 to 3000, with step 50ms
-            easing: 'ease',    // Default easing for AOS animations
-            once: false,       // REPLAY ANIMATION EVERY TIME
-            mirror: true,      // Animate elements out while scrolling past them
+            offset: 120,       
+            delay: 0,          
+            duration: 1000,    
+            easing: 'ease',    
+            once: false,       /* Animation Replays Every Time */
+            mirror: true,      /* Animate on scroll up too */
             anchorPlacement: 'top-bottom', 
         });
     </script>
