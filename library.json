@@ -1,0 +1,49 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "title": "The Great Gatsby",
+            "creator": "F. Scott Fitzgerald",
+            "category": "Book",
+            "date": "1925",
+            "description": "A story of the Jazz Age.",
+            "available": 1,
+            "borrower": null,
+            "borrow_date": null
+        },
+        {
+            "id": 2,
+            "title": "1984",
+            "creator": "George Orwell",
+            "category": "Book",
+            "date": "1949",
+            "description": "A dystopian social science fiction novel.",
+            "available": 1,
+            "borrower": null,
+            "borrow_date": null
+        },
+        {
+            "id": 3,
+            "title": "The Godfather",
+            "creator": "Francis Ford Coppola",
+            "category": "Film",
+            "date": "1972",
+            "description": "The aging patriarch of an organized crime dynasty.",
+            "available": 1,
+            "borrower": null,
+            "borrow_date": null
+        },
+        {
+            "id": 4,
+            "title": "National Geographic",
+            "creator": "NatGeo Society",
+            "category": "Magazine",
+            "date": "May 2024",
+            "description": "Special issue on Ocean Conservation.",
+            "available": 1,
+            "borrower": null,
+            "borrow_date": null
+        }
+    ],
+    "history": []
+}
